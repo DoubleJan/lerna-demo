@@ -116,30 +116,6 @@ lerna add <package>
 lerna add <package>
 ```
 
-通常来说（比如yarn），全局安装后，可能是装在根目录下的`node_modules`。但结果是，对每一个packages目录下都装了commander，各自依赖各自的node_modules。这个时候，我们就需要把公共依赖从各自packages目录下提升至全局，并且各个package创建一个指向全局node_moduels的依赖链接。运行下面的命令: 
-
-```bash
-lerna bootstrap --hoist
-```
-
-bootstrap命令是用来整理所有包的依赖关系， `--hoist`选项用来把公共的npm包移动到根目录的node_modules，在各个package内部只存放一个结构与依赖包类似的链接，以便能够使用npm脚本。
-
-为了防止每次运行bootstrap命令都要添加这个选项，可以在lerna.json中添加如下配置：
-
-```json
-{
-  "packages": [
-    "packages/*"
-  ],
-  "command": {
-    "bootstrap": {
-      "hoist": true
-    }
-  },
-  "version": "0.0.0"
-}
-```
-
 #### (2) 给单个模块添加依赖
 
 ```bash
@@ -167,6 +143,44 @@ lerna add @lerna-demo/utils --scope @lerna-demo/cli
 ```
 
 > 运行上面的命令后，@lerna-demo/utils会被作为依赖加入到@lerna-demo/cli/node_modules目录下面
+
+#### (4) 依赖管理
+
+前面提到的安装全局依赖，通常来说，全局安装后，可能是装在根目录下的`node_modules`。但前面安装commander的结果是，对每一个packages目录下都装了commander，各自依赖各自的node_modules。这个时候，我们就需要把公共依赖从各自packages目录下提升至全局，并且各个package创建一个指向全局node_moduels的依赖链接。运行下面的命令: 
+
+```bash
+lerna bootstrap --hoist
+```
+
+bootstrap命令是用来整理所有包的依赖关系， `--hoist`选项用来把公共的npm包移动到根目录的node_modules，在各个package内部只存放一个结构与依赖包类似的链接，以便能够使用npm脚本。
+
+为了防止每次运行bootstrap命令都要添加这个选项，可以在lerna.json中添加如下配置：
+
+```json
+{
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "bootstrap": {
+      "hoist": true
+    }
+  },
+  "version": "0.0.0"
+}
+```
+
+就算运行了上述命令，我们会发现模块下的node_modules还是会有残留，此时需要运行:
+
+```bash
+lerna clean
+```
+
+清理模块下的残留依赖，然后由于配置了`bootstrap`命令默认提供`--hoist`参数，可以直接运行`bootstrap`命令来重新引导依赖：
+
+```bash
+lerna bootstrap
+```
 
 ### 3. 发布
 
