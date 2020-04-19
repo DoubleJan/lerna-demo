@@ -29,5 +29,6 @@
   "dependencies": {
     "@lerna-demo/utils": "^1.0.0",
     "commander": "^5.0.0"
-  }
+  },
+  "gitHead": "71e27247ab850e8747ce2e9f2f6b1b9f17584e90"
 }
