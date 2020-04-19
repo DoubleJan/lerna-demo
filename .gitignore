@@ -1,0 +1,7 @@
+# 忽略node_modules
+
+node_modules
+
+# 忽略lock
+package-lock.json
+yarn-lock.json
