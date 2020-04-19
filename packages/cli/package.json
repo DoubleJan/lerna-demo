@@ -1,6 +1,6 @@
 {
   "name": "@lerna-demo/cli",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "岳冰鉴 <yuebingjian@yingzi.com>",
   "homepage": "https://github.com/DoubleJan/lerna-demo#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/DoubleJan/lerna-demo/issues"
   },
   "dependencies": {
-    "@lerna-demo/utils": "^0.0.0",
+    "@lerna-demo/utils": "^1.0.0",
     "commander": "^5.0.0"
   }
 }
