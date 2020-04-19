@@ -152,7 +152,7 @@ lerna add @lerna-demo/utils --scope @lerna-demo/cli
 lerna bootstrap --hoist
 ```
 
-bootstrap命令是用来整理所有包的依赖关系， `--hoist`选项用来把公共的npm包移动到根目录的node_modules，在各个package内部只存放一个结构与依赖包类似的链接，以便能够使用npm脚本。
+bootstrap命令是用来安装依赖，并整理所有包的依赖关系。 `--hoist`选项用来把公共的npm包移动到根目录的node_modules，在各个package内部只存放一个结构与依赖包类似的链接，以便能够使用npm脚本。
 
 为了防止每次运行bootstrap命令都要添加这个选项，可以在lerna.json中添加如下配置：
 
@@ -184,7 +184,43 @@ lerna bootstrap
 
 ### 3. 发布
 
+```bash
+lerna publish
+```
 
+运行上述命令，会首先要求选择版本号：
+
+```bash
+? Select a new version (currently 0.0.0)
+  Patch (0.0.1)
+  Minor (0.1.0)
+> Major (1.0.0)
+  Prepatch (0.0.1-alpha.0)
+  Preminor (0.1.0-alpha.0)
+  Premajor (1.0.0-alpha.0)
+  Custom Prerelease
+  Custom Version
+```
+
+之后确认要发布的模块:
+
+```bash
+? Select a new version (currently 0.0.0) Major (1.0.0)
+
+Changes:
+ - @lerna-demo/cli: 0.0.0 => 1.0.0
+ - @lerna-demo/utils: 0.0.0 => 1.0.0
+
+? Are you sure you want to publish these packages? (ynH)
+```
+
+lerna的实现可能依赖package-lock.json文件，如果把这些文件配置到了.gitignore中，就会报错：
+
+```log
+31 error The following paths are ignored by one of your .gitignore files:
+31 error packages/cli/package-lock.json
+31 error packages/utils/package-lock.json
+```
 
 
 
